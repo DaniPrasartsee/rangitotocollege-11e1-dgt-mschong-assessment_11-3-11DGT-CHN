@@ -1,12 +1,9 @@
-import tkinter as tk
-root = tk.Tk()
+for tkinter import *
+root = Tk()
 root.config(bg = 'black')
 root.title("Game Menu")
 
-def paint_open():
-    painter = tk.Toplevel(root)
-    
-button1 = tk.Button(root, text="test", width=25, height=20, command= )
+button1 = Button(root, text="test", width=25, height=20, command= )
 button1.config (bg = 'black', fg = 'white')
 button1.place(x = 100, y = 100)
 
