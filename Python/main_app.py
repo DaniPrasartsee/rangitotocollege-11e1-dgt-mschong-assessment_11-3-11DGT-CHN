@@ -1,18 +1,20 @@
 import tkinter as tk
 from tkinter import ttk
-import paint # Import the module containing the new window function
+import paint
+import jumping
 
 def open_new_window_from_module():
-    """Function to open the new window defined in another module."""
     paint.create_new_window()
+def open_new_window_from_module2():
+    jumping.create_new_window()
 
-# Create the main window
 root = tk.Tk()
 root.title("Menu")
 root.geometry("400x300")
 
-# Create a button to open the new window
 open_button = ttk.Button(root, text="Paint", command=open_new_window_from_module)
 open_button.pack(pady=20)
+open_button2 = ttk.Button(root, text="Jumping", command=open_new_window_from_module2)
+open_button2.pack(pady=20)
 
 root.mainloop()
