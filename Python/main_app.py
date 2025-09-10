@@ -8,11 +8,11 @@ def open_new_window_from_module():
 
 # Create the main window
 root = tk.Tk()
-root.title("Main Application")
+root.title("Menu")
 root.geometry("400x300")
 
 # Create a button to open the new window
-open_button = ttk.Button(root, text="Open New Window", command=open_new_window_from_module)
+open_button = ttk.Button(root, text="Paint", command=open_new_window_from_module)
 open_button.pack(pady=20)
 
 root.mainloop()
