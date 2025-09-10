@@ -1,22 +1,15 @@
-import tkinter as tk
+from tkinter import *
+from PIL import Image, ImageTk
 
-root = tk.Tk()
-canvas = tk.Canvas(root, width=400, height=300, bg="white")
-canvas.pack()
+root = Tk()
+root.title("test")
+root.iconbitmap('images/tkinter.ico')
+root.geometry('600x400')
 
-shape = canvas.create_rectangle(50, 50, 100, 100, fill="red")
+chicken = Image.open('images/chicken.jpg')
+chicken = ImageTk.PhotoImage(chicken)
 
-def moveup(event):
-    canvas.move(shape, 0, -10)
-def movedown(event):
-    canvas.move(shape, 0, 10)
-
-root.bind("<Up>", moveup)
-root.bind("<Down>", movedown)
-
-
-
-
-
+my_label = Label(root, image=chicken)
+my_label.pack(pady_20)
 
 root.mainloop()
