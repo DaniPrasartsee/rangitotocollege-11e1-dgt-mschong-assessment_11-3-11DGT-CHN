@@ -10,7 +10,7 @@ class Player:
         self.height = 50
         self.player_id = canvas.create_rectangle(x, y, x + self.width, y + self.height, fill="blue")
 
-        self.gravity = 0.5  # Adjust this value for stronger/weaker gravity
+        self.gravity = 1  # Adjust this value for stronger/weaker gravity
         self.vertical_velocity = 0
 
     def apply_gravity(self):

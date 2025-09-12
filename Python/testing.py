@@ -12,4 +12,6 @@ chicken = ImageTk.PhotoImage(chicken)
 my_label = Label(root, image=chicken)
 my_label.pack(pady_20)
 
+
+
 root.mainloop()

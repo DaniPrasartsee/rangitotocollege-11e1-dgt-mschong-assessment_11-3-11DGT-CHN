@@ -1,24 +1,27 @@
 
 import tkinter as tk
 
+class Player:
+    def __init__(self, canvas, x, y):
+        self.x = x
+        self.y = y
+
+        self.player_id = canvas.create_rectangle(x, y, width = 30, height = 30, fill="blue")
+
+class Game:
+    def __init__(self, root):
+        self.root = root
+        self.canvas = tk.Canvas(root, width=800, height=600, bg="black")
+        self.canvas.pack()
+        
+
+
+        self.platform = self.canvas.create_rectangle(0, 550, 3000,850, fill="white")
+
 
 root = tk.Tk()
-canvas = tk.Canvas(root, width=400, height=300, bg="white")
-canvas.pack()
-
-shape = canvas.create_rectangle(50, 50, 100, 100, fill="red")
-
-def moveup(event):
-    canvas.move(shape, 0, -10)
-def movedown(event):
-    canvas.move(shape, 0, 10)
-
-root.bind("<Up>", moveup)
-root.bind("<Down>", movedown)
-
-
-
-
-
-
+game = Game(root)
 root.mainloop()
+
+
+
