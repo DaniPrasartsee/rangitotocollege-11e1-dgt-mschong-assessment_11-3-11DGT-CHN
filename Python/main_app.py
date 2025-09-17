@@ -9,7 +9,7 @@ def open_new_window_from_module2():
     jumping.create_new_window()
 
 root = tk.Tk()
-root.config(bg = "#E8D9CD")
+root.config(height = 500, width = 500, bg = "#E8D9CD")
 root.title("Menu")
 root.geometry("400x300")
 

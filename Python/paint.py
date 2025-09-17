@@ -41,7 +41,3 @@ def create_new_window():
     can.bind("<B1-Motion>", draw)
 
     root.mainloop()
-
-
-
-
