@@ -1,4 +1,3 @@
-#NOT MY CODE. WILL NOT BE USING THIS. FOR REFERENCE
 import tkinter as tk
 
 class Player:

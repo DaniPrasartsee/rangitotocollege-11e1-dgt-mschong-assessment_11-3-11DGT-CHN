@@ -28,10 +28,10 @@ def create_new_window():
     win = tk.Toplevel()
     win.title("Paint")
 
-    can = tk.Canvas(win, width=400, height=300, bg="white")
+    can = tk.Canvas(win, width=400, height=300, bg="#E8D9CD")
     can.pack()
 
-    colors = ["black", "white", "red", "blue"]
+    colors = ["black", "#E8D9CD", "red", "blue"]
     for color in colors:
         tk.Button(win, text=color.capitalize(), bg=color,
                   command=lambda c=color: changec(c)).pack(side=tk.LEFT)
