@@ -1,9 +1,13 @@
 from tkinter import *
+from PIL import Image, Image
 
 root = Tk()
+root.title("cool")
+root.iconbitmap('image/tkinter.ico')
+root.geometry('600x400')
 
-photo = PhotoImage(file="chicken.png")
-label = Label(root, image=photo)
-label.pack()
+c = Image.open("C:\Users\196615\rangitotocollege-11e1-dgt-mschong-assessment_11-3-11DGT-CHN\Python\chicken.png")
+c = ImageTk.PhotoImage(c)
 
-root.mainloop()
+label = Label(root, image=c)
+label.pack(pady=2)

@@ -28,7 +28,7 @@ def create_new_window():
     win = tk.Toplevel()
     win.title("Paint")
 
-    can = tk.Canvas(win, width=400, height=300, bg="#E8D9CD")
+    can = tk.Canvas(win, width=1000, height=500, bg="#E8D9CD")
     can.pack()
 
     colors = ["black", "#E8D9CD", "red", "blue"]
