@@ -60,6 +60,14 @@ class Game:
 
         # FPS thing i just took from another code I saw
         self.root.after(16, self.update_game)
+class Obstacle:
+    def __init__(self, canvas, x, y):
+        self.canvas = canvas  #Canvas
+        self.x = x
+        self.y = y
+        self.width = 30
+        self.height = 50
+        self.player_id = canvas.create_rectangle(x, y, x + self.width, y + self.height, fill="red") #Player
 
 root = tk.Tk()
 game = Game(root)
