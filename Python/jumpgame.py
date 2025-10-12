@@ -10,7 +10,7 @@ class Player:
         self.height = 50
         self.player_id = canvas.create_rectangle(x, y, x + self.width, y + self.height, fill="blue")
         
-        self.gravity = 0.5  # grav strength higher number = stronger gravity
+        self.gravity = 0.4  # grav strength higher number = stronger gravity
         self.vertical_velocity = 0
 
     def apply_gravity(self):
@@ -62,7 +62,7 @@ class Game:
 
         self.obstacles = []
         self.obstacle_speed = -5 #change speed
-        self.spawn_interval = 1 #lower number = more obstacle spawns
+        self.spawn_interval = 2000 #lower number = more obstacle spawns
         self.game_over = False
         self.schedule_spawn()
         self.update_game()
