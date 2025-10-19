@@ -3,28 +3,31 @@ import random
 
 class Player:
     def __init__(self, canvas, x, y):
-        self.canvas = canvas  # Canvas
+        self.canvas = canvas
         self.x = x
         self.y = y
         self.width = 30
         self.height = 50
         self.player_id = canvas.create_rectangle(x, y, x + self.width, y + self.height, fill="blue")
-        
-        self.gravity = 0.4  # grav strength higher number = stronger gravity
+        self.gravity = 0.4
         self.vertical_velocity = 0
+        self.fast_fall = False  # whether the player is holding down
 
     def apply_gravity(self):
-        self.vertical_velocity += self.gravity
+        # use stronger gravity when fast falling
+        effective_gravity = self.gravity * (3 if self.fast_fall else 1)
+        self.vertical_velocity += effective_gravity
         self.y += self.vertical_velocity
         self.canvas.coords(self.player_id, self.x, self.y, self.x + self.width, self.y + self.height)
 
     def jump(self):
-        # double jump prevention
+        # jump only when on ground (no double jump)
         if abs(self.vertical_velocity) < 1e-6:
             self.vertical_velocity = -10
 
     def get_coords(self):
-        return self.canvas.coords(self.player_id) #coordinates of playing of something (if overlaps with obstacle = lose)
+        return self.canvas.coords(self.player_id)
+
 
 class Obstacle:
     def __init__(self, canvas, x, y, width=30, height=50):
@@ -43,32 +46,50 @@ class Obstacle:
         return self.canvas.coords(self.id)
 
     def off_left(self):
-        # check if the obstacle is entirely off the left side
         x1, y1, x2, y2 = self.get_coords()
         return x2 < 0
 
     def destroy(self):
         self.canvas.delete(self.id)
 
+
 class Game:
-    def __init__(self, root):
+    def __init__(self, root, parent_window):
         self.root = root
+        self.parent_window = parent_window
         self.canvas = tk.Canvas(root, width=800, height=600, bg="light blue")
         self.canvas.pack()
-        self.player = Player(self.canvas, 100, 500)
         self.platform = self.canvas.create_rectangle(0, 550, 3000, 850, fill="light green")
-        
-        root.bind("<space>", self.handle_jump)
 
+        self.player = Player(self.canvas, 100, 500)
         self.obstacles = []
-        self.obstacle_speed = -5 #change speed
-        self.spawn_interval = 2000 #lower number = more obstacle spawns
+        self.obstacle_speed = -5
+        self.spawn_interval = 2000
         self.game_over = False
+        self.replay_button = None
+
+        # key bindings for jumping and fast drop
+        root.bind("<space>", self.handle_jump)
+        root.bind("<KeyPress-w>", self.handle_jump)
+        root.bind("<KeyPress-Up>", self.handle_jump)
+        root.bind("<KeyPress-s>", self.handle_fastfall_press)
+        root.bind("<KeyPress-Down>", self.handle_fastfall_press)
+        root.bind("<KeyRelease-s>", self.handle_fastfall_release)
+        root.bind("<KeyRelease-Down>", self.handle_fastfall_release)
+
         self.schedule_spawn()
         self.update_game()
 
     def handle_jump(self, event):
-        self.player.jump()
+        if not self.game_over:
+            self.player.jump()
+
+    def handle_fastfall_press(self, event):
+        if not self.game_over:
+            self.player.fast_fall = True
+
+    def handle_fastfall_release(self, event):
+        self.player.fast_fall = False
 
     def schedule_spawn(self):
         if not self.game_over:
@@ -94,6 +115,8 @@ class Game:
         player_coords = self.player.get_coords()
         platform_coords = self.canvas.coords(self.platform)
         _, py1, _, py2 = platform_coords
+
+        # landing logic
         if (player_coords[3] >= py1 and
             player_coords[2] > platform_coords[0] and
             player_coords[0] < platform_coords[2] and
@@ -104,12 +127,14 @@ class Game:
                                self.player.x, self.player.y,
                                self.player.x + self.player.width, self.player.y + self.player.height)
 
+        # move obstacles
         for obs in list(self.obstacles):
             obs.move(self.obstacle_speed)
             if obs.off_left():
                 obs.destroy()
                 self.obstacles.remove(obs)
 
+        # check collision
         pcoords = player_coords
         for obs in self.obstacles:
             ocoords = obs.get_coords()
@@ -118,17 +143,24 @@ class Game:
                 pcoords[3] > ocoords[1] and
                 pcoords[1] < ocoords[3]):
                 self.end_game()
-                break
+                return
 
         self.root.after(16, self.update_game)
 
     def end_game(self):
         self.game_over = True
-        self.canvas.create_text(400, 300, text="bruh", font=("Arial", 36), fill="black")
+        self.canvas.create_text(400, 250, text="Game Over!", font=("Arial", 36), fill="black")
+        self.replay_button = tk.Button(self.root, text="Restart", font=("Arial", 18),
+                                       bg="#BBA58F", command=self.restart_game)
+        self.replay_button.place(x=350, y=320)
+
+    def restart_game(self):
+        # close current window and open new one
+        self.root.destroy()
+        create_new_window()
 
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    root.title("if you dont know how to braid hit that follow button lets go!!!")
-    game = Game(root)
-    root.mainloop()
+def create_new_window():
+    win = tk.Toplevel()
+    win.title("Jump Game")
+    Game(win, win)
