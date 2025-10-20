@@ -57,9 +57,9 @@ class Game:
     def __init__(self, root, parent_window):
         self.root = root
         self.parent_window = parent_window
-        self.canvas = tk.Canvas(root, width=800, height=600, bg="light blue")
+        self.canvas = tk.Canvas(root, width=800, height=600, bg="#BBA58F")
         self.canvas.pack()
-        self.platform = self.canvas.create_rectangle(0, 550, 3000, 850, fill="light green")
+        self.platform = self.canvas.create_rectangle(0, 550, 3000, 850, fill="#76593C")
 
         self.player = Player(self.canvas, 100, 500)
         self.obstacles = []

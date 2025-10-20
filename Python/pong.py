@@ -5,25 +5,25 @@ class PongGame:
     def __init__(self, root, parent_window):
         self.root = root
         self.parent_window = parent_window
-        self.root.title("table tennis with a laptop!")
-        self.canvas = tk.Canvas(root, width=800, height=500, bg="black")
+        self.root.title("calm luh pong")
+        self.canvas = tk.Canvas(root, width=800, height=500, bg="#BBA58F")
         self.canvas.pack()
 
-        # Paddle setup
+        # paddle setup
         self.paddle_speed = 10
         self.paddle_width = 15
         self.paddle_height = 100
         self.left_paddle = self.canvas.create_rectangle(20, 200, 35, 300, fill="white")
         self.right_paddle = self.canvas.create_rectangle(765, 200, 780, 300, fill="white")
 
-        # Ball setup
+        # ball setup
         self.ball = self.canvas.create_oval(390, 240, 410, 260, fill="white")
         self.ball_dx = random.choice([-6, 6])
         self.ball_dy = random.choice([-4, 4])
         self.ball_speed_multiplier = 1.05
         self.max_ball_speed = 20
 
-        # Score setup
+        # Sscore setup
         self.left_score = 0
         self.right_score = 0
         self.score_text = self.canvas.create_text(400, 50, text="0 : 0", font=("Arial", 32), fill="white")
@@ -122,10 +122,10 @@ class PongGame:
 
     def game_over(self):
         self.running = False
-        winner = "Left Player" if self.left_score >= 10 else "Right Player"
-        self.canvas.create_text(400, 250, text=f"{winner} Wins!", font=("Arial", 36), fill="yellow")
+        winner = "Left Player" if self.left_score >= 5 else "Right Player"
+        self.canvas.create_text(400, 250, text=f"{winner} wins", font=("Arial", 36), fill="yellow")
 
-        restart_btn = tk.Button(self.root, text="Restart", font=("Arial", 16),
+        restart_btn = tk.Button(self.root, text="restart", font=("Arial", 16),
                                 bg="#444", fg="white", command=self.restart_game)
         restart_btn.place(x=350, y=300)
 
