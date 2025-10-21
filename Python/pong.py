@@ -2,12 +2,13 @@ import tkinter as tk
 import random
 
 class PongGame:
-    def __init__(self, root, parent_window):
+    def __init__(self, root, parent_window): 
         self.root = root
         self.parent_window = parent_window
         self.root.title("calm luh pong")
         self.canvas = tk.Canvas(root, width=800, height=500, bg="#BBA58F")
         self.canvas.pack()
+
 
         # paddle setup
         self.paddle_speed = 10
@@ -112,7 +113,7 @@ class PongGame:
         self.ball_dx = max(-self.max_ball_speed, min(self.ball_dx, self.max_ball_speed))
         self.ball_dy = max(-self.max_ball_speed, min(self.ball_dy, self.max_ball_speed))
 
-    def reset_ball(self, direction):
+    def reset_ball(self, direction): 
         self.canvas.coords(self.ball, 390, 240, 410, 260)
         self.ball_dx = direction * random.choice([6, 7])
         self.ball_dy = random.choice([-4, 4])

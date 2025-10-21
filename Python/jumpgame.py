@@ -7,8 +7,8 @@ class Player:
         self.x = x
         self.y = y
         self.width = 30
-        self.height = 50
-        self.player_id = canvas.create_rectangle(x, y, x + self.width, y + self.height, fill="blue")
+        self.height = 50 #sets coordinates of where the player is. i could have put this in the brackets below but it kept giving me errors
+        self.player_id = canvas.create_rectangle(x, y, x + self.width, y + self.height, fill="#c2b6f9")
         self.gravity = 0.4
         self.vertical_velocity = 0
         self.fast_fall = False  # whether the player is holding down
@@ -29,11 +29,11 @@ class Player:
         return self.canvas.coords(self.player_id)
 
 
-class Obstacle:
+class Obstacle: 
     def __init__(self, canvas, x, y, width=30, height=50):
         self.canvas = canvas
         self.x = x
-        self.y = y
+        self.y = y #same exact system as above for player class
         self.width = width
         self.height = height
         self.id = canvas.create_rectangle(x, y, x + width, y + height, fill="red")
@@ -63,8 +63,8 @@ class Game:
 
         self.player = Player(self.canvas, 100, 500)
         self.obstacles = []
-        self.obstacle_speed = -5
-        self.spawn_interval = 2000
+        self.obstacle_speed = -10
+        self.spawn_interval = 1500
         self.game_over = False
         self.replay_button = None
 

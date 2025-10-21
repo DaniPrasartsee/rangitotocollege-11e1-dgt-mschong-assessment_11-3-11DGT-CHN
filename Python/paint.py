@@ -5,6 +5,7 @@ def create_new_window(): #makes it so if i press the button from the menu itll l
     last_x, last_y = None, None
     pen_color = 'black'
 
+
     def start(event): 
         nonlocal drawing, last_x, last_y
         drawing = True #finds coords of mouse and draws
@@ -26,7 +27,7 @@ def create_new_window(): #makes it so if i press the button from the menu itll l
         pen_color = newc
 
   
-    win = tk.Toplevel() #root n title
+    win = tk.Toplevel() #root and title
     win.title("Paint")
 
     can = tk.Canvas(win, width=1000, height=500, bg="#E8D9CD") #canvas, MAYBE ill find a way to allow user to change color of canvas
@@ -47,6 +48,9 @@ def create_new_window(): #makes it so if i press the button from the menu itll l
         btn = tk.Button(win, text=label, bg=color_code,
                         command=lambda c=color_code: changec(c))
         btn.pack(side=tk.LEFT)
+
+
+
 
     can.bind("<Button-1>", start) #binds drawing to mouse clicks and holds
     can.bind("<ButtonRelease-1>", stop)
